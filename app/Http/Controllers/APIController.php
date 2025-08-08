@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class APIController
 {
-    public function responseJson(bool $success = true,int $statusCode = Response::HTTP_OK, mixed $data = [], string $message = '') :JsonResponse
+    public function responseJson(bool $success = true,int $statusCode = Response::HTTP_OK, mixed $data = [], string $message = ''): JsonResponse
     {
         return response()->json
         ([
