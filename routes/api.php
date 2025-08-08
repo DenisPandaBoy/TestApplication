@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-Route::middleware(['auth:sanctum'])->group(function ():void
+Route::middleware(['auth:sanctum'])->group(function ()
 {
    /** Route::get('/temporary', function (Request $request)
     {
@@ -18,5 +18,5 @@ Route::middleware(['auth:sanctum'])->group(function ():void
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::post('/user/update-password',[AuthController::class,'updatePassword']);
+    Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
 });
