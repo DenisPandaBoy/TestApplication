@@ -12,7 +12,8 @@ class UpdatePasswordRequest extends FormRequest
         return true;
     }
 
-    public function rules():array{
+    public function rules(): array
+    {
         return [
             'old_password' => ['required', 'current_password'],
             'new_password' => ['required', 'confirmed', Password::min(8)],
