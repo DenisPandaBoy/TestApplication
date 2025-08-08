@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,5 @@ Route::middleware(['auth:sanctum'])->group(function ()
         return $request->user();
     });
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
+    Route::get('/order', [OrderController::class, 'index']);
 });
