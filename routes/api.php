@@ -1,11 +1,22 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware(['auth:sanctum'])->group(function ():void
+{
+   /** Route::get('/temporary', function (Request $request)
+    {
+        $user = User::findOrFail(1);
+        $user->password = bcrypt('noveHeslo');
+        $user->save();
+    });
+    **/
 
-Route::post('/user/updatePassword',[AuthController::class,'updatePassword'])->middleware('auth:sanctum');
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::post('/user/update-password',[AuthController::class,'updatePassword']);
+});

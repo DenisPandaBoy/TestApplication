@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdatePasswordRequest;
+use App\Services\UserService;
 
-class AuthController
+class AuthController extends APIController
 {
+    public function __construct(
+      private readonly UserService $userService
+    ) {}
     public function updatePassword(UpdatePasswordRequest $request)
     {
-        if($request->new_password != $request->reenteredPassword) return "Passwords do not match";
+        $validated = $request->validated();
 
-        $user = request()->user();
-        $user->password = bcrypt($request->new_password);
-        $user->save();
-        return "Password updated successfully";
+        $this->userService->updatePassword(bcrypt($validated['new_password']));
+
+        return $this->responseJson(message:"Password changed successfully.");
     }
 }
