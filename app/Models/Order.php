@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class Order extends Model
     protected $fillable = [
         'order_number',
         'due_date',
-        'pay_date',
+        'payment_date',
     ];
 
     /**
@@ -30,7 +31,7 @@ class Order extends Model
         return [
             'order_number' => 'integer',
             'due_date' => 'datetime',
-            'pay_date' => 'datetime',
+            'payment_date' => 'datetime',
         ];
     }
 }

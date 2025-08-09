@@ -17,7 +17,7 @@ class OrderResource extends JsonResource
         return [
             'order_number' => $this->order_number,
             'due_date' => $this->due_date,
-            'pay_date' => $this->pay_date,
+            'payment_date' => $this->payment_date,
         ];
     }
 }

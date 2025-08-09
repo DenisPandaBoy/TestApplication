@@ -20,5 +20,7 @@ Route::middleware(['auth:sanctum'])->group(function ()
         return $request->user();
     });
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
+    Route::post('/order/store', [OrderController::class, 'store']);
     Route::get('/order', [OrderController::class, 'index']);
+    Route::get('/order/{id}', [OrderController::class, 'show']);
 });

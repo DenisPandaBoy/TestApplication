@@ -13,4 +13,9 @@ class OrderRepository implements OrderRepositoryInterface
     {
         return Order::query()->get();
     }
+
+    public function getOrderById($id): Order
+    {
+        return Order::query()->findOrFail($id);
+    }
 }
