@@ -30,4 +30,18 @@ class OrderService
 
         return $order;
     }
+
+    public function UpdateOrder(Order $order, array $data): Order
+    {
+        $order->update($data);
+        $order->updated_at = now();
+        $order->save();
+        return $order;
+    }
+
+    public function DeleteOrder(Order $order): int
+    {
+        $order->delete();
+        return $order->order_number;
+    }
 }

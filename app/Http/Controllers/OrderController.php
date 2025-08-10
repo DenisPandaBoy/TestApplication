@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Interfaces\OrderRepositoryInterface;
 use App\Services\OrderService;
@@ -37,10 +38,25 @@ class OrderController extends APIController
 
     public function store(CreateOrderRequest $request): JsonResponse
     {
-        $validated = $request->validated();
-
-        $order = $this->orderService->CreateOrder(DateTime::createFromFormat('Y-m-d',$validated['due_date']));
+        $order = $this->orderService->CreateOrder(DateTime::createFromFormat('Y-m-d H:i:s',$request['due_date']));
 
         return $this->responseJson(data: $order, message: 'Order created successfully.');
+    }
+
+    public function update(UpdateOrderRequest $request, int $id): JsonResponse
+    {
+        $order = $this->orderRepository->getOrderById($id);
+
+        $updatedOrder = $this->orderService->UpdateOrder($order, $request->all());
+
+        return $this->responseJson(data: $updatedOrder, message: 'Order updated successfully.');
+    }
+
+    public function destroy(int $id): JsonResponse{
+        $order = $this->orderRepository->getOrderById($id);
+
+        $orderNumber = $this->orderService->DeleteOrder($order);
+
+        return $this->responseJson(message: "Order $orderNumber deleted successfully.");
     }
 }
