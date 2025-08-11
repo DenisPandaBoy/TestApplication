@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Interfaces\OrderRepositoryInterface;
 use App\Services\OrderService;
-use DateTime;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 
 class OrderController extends APIController
@@ -37,7 +37,7 @@ class OrderController extends APIController
 
     public function store(CreateOrderRequest $request): JsonResponse
     {
-        $order = $this->orderService->createOrder(DateTime::createFromFormat('Y-m-d H:i:s',$request->due_date));
+        $order = $this->orderService->createOrder(Carbon::createFromFormat('Y-m-d H:i:s',$request->due_date));
 
         return $this->responseJson(data: $order, message: 'Order created successfully.');
     }

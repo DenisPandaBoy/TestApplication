@@ -25,7 +25,6 @@ class OrderService
     public function updateOrder(Order $order, array $data): Order
     {
         $order->update($data);
-        $order->updated_at = now();
         $order->save();
         return $order;
     }
