@@ -7,18 +7,9 @@ use DateTime;
 
 class OrderService
 {
-    public function CreateOrder(DateTime $due_date): Order
+    public function createOrder(DateTime $due_date): Order
     {
-        $collection = Order::query()->whereLike('order_number', $due_date->format('Y').'%')->get();
-
-        $max = 0;
-        foreach ($collection as $order) {
-            $newValue =intval(substr($order['order_number'],4));
-            if( $newValue> $max) $max = $newValue;
-        }
-        $nextId= $max+1;
-
-        $order_number = $due_date->format('Y'). sprintf('%05d', $nextId);
+        $order_number = Order::query()->Max('order_number') + 1;
 
         $data = [
             'order_number' => $order_number,
@@ -31,7 +22,7 @@ class OrderService
         return $order;
     }
 
-    public function UpdateOrder(Order $order, array $data): Order
+    public function updateOrder(Order $order, array $data): Order
     {
         $order->update($data);
         $order->updated_at = now();
@@ -39,9 +30,9 @@ class OrderService
         return $order;
     }
 
-    public function DeleteOrder(Order $order): int
+    public function deleteOrder(Order $order): Order
     {
         $order->delete();
-        return $order->order_number;
+        return $order;
     }
 }

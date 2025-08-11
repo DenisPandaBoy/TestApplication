@@ -27,7 +27,8 @@ class Order extends Model
      *
      * @return array<string, string>
      */
-    protected function casts(): array{
+    protected function casts(): array
+    {
         return [
             'order_number' => 'integer',
             'due_date' => 'datetime',

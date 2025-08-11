@@ -9,7 +9,6 @@ use App\Interfaces\OrderRepositoryInterface;
 use App\Services\OrderService;
 use DateTime;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class OrderController extends APIController
 {
@@ -27,7 +26,7 @@ class OrderController extends APIController
         return $this->responseJson(data: $resource);
     }
 
-    public function show($id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $order = $this->orderRepository->getOrderById($id);
 
@@ -38,7 +37,7 @@ class OrderController extends APIController
 
     public function store(CreateOrderRequest $request): JsonResponse
     {
-        $order = $this->orderService->CreateOrder(DateTime::createFromFormat('Y-m-d H:i:s',$request['due_date']));
+        $order = $this->orderService->createOrder(DateTime::createFromFormat('Y-m-d H:i:s',$request->due_date));
 
         return $this->responseJson(data: $order, message: 'Order created successfully.');
     }
@@ -47,15 +46,16 @@ class OrderController extends APIController
     {
         $order = $this->orderRepository->getOrderById($id);
 
-        $updatedOrder = $this->orderService->UpdateOrder($order, $request->all());
+        $updatedOrder = $this->orderService->updateOrder($order, $request->all());
 
         return $this->responseJson(data: $updatedOrder, message: 'Order updated successfully.');
     }
 
-    public function destroy(int $id): JsonResponse{
+    public function destroy(int $id): JsonResponse
+    {
         $order = $this->orderRepository->getOrderById($id);
 
-        $orderNumber = $this->orderService->DeleteOrder($order);
+        $orderNumber = $this->orderService->deleteOrder($order);
 
         return $this->responseJson(message: "Order $orderNumber deleted successfully.");
     }
