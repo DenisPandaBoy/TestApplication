@@ -6,6 +6,7 @@ use App\Http\Requests\CreateOrderItemRequest;
 use App\Http\Requests\UpdateOrderItemRequest;
 use App\Http\Resources\OrderItemResource;
 use App\Interfaces\OrderItemRepositoryInterface;
+use App\Models\Order;
 use App\Services\OrderItemService;
 use Illuminate\Http\JsonResponse;
 
@@ -18,26 +19,17 @@ class OrderItemController extends APIController
     {
     }
 
-    public function index(): JsonResponse
+    public function index(int $orderId): JsonResponse
     {
-        $orderItems = $this->orderItemRepository->getOrderItems();
+        $orderItems = $this->orderItemRepository->getOrderItems($orderId);
         $resource = OrderItemResource::collection($orderItems);
 
         return $this->responseJson(data: $resource);
     }
 
-    public function show(int $id): JsonResponse
+    public function store(CreateOrderItemRequest $request, int $orderId): JsonResponse
     {
-        $orderItem = $this->orderItemRepository->getOrderItemById($id);
-
-        $resource = OrderItemResource::make($orderItem);
-
-        return $this->responseJson(data: $resource);
-    }
-
-    public function store(CreateOrderItemRequest $request): JsonResponse
-    {
-        $orderItem = $this->orderItemService->createOrderItem($request->all());
+        $orderItem = $this->orderItemService->createOrderItem($orderId,$request->all());
 
         $resource = OrderItemResource::make($orderItem);
 

@@ -2,13 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\Order;
 use App\Models\OrderItem;
 
 class OrderItemService
 {
-    public function createOrderItem(array $data): OrderItem
+    public function createOrderItem(int $order_id, array $data): OrderItem
     {
-        return OrderItem::create($data);
+        $order = Order::findOrFail($order_id);
+
+        return $order->orderItems()->create($data);
     }
 
     public function updateOrderItem(OrderItem $orderItem, array $data): OrderItem

@@ -22,5 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function ()
     });
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
     Route::apiResource('order', OrderController::class);
-    Route::apiResource('order-items', OrderItemController::class);
+    Route::apiResource('order-items', OrderItemController::class)->only(['update', 'destroy']);
+    Route::get('order-items/{order_id}', [OrderItemController::class, 'index']);
+    Route::post('order-items/store/{order_id}', [OrderItemController::class, 'store']);
 });

@@ -23,7 +23,6 @@ class CreateOrderItemRequest extends FormRequest
     {
         return [
             'name' => ['string'],
-            'order_id' => ['required','exists:orders,id'],
             'count' => ['numeric'],
             'price' => ['numeric'],
             'vat' => ['numeric'],
