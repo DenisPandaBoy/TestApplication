@@ -7,14 +7,14 @@ use DateTime;
 
 class OrderService
 {
-    public function createOrder(DateTime $due_date): Order
+    public function createOrder(array $data): Order
     {
         $order_number = Order::query()->Max('order_number') + 1;
 
         $data = [
             'order_number' => $order_number,
-            'due_date' => $due_date,
-            'payment_date' => date('Y-m-d H:i:s')
+            'due_date' => $data['due_date'],
+            'payment_date' => $data['payment_date'],
         ];
         $order = Order::create($data);
         $order->save();

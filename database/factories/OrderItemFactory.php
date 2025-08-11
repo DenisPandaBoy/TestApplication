@@ -16,8 +16,16 @@ class OrderItemFactory extends Factory
      */
     public function definition(): array
     {
+        $vat = 21;
+        $price = fake()->numberBetween(0,100);
+        $price_vat = $price * ( 1 + $vat / 100.0);
+
         return [
-            //
+            'name'=> fake()->randomElement(['kofola','banan','baklazan']),
+            'count'=> fake()->numberBetween(0,100),
+            'price'=> $price,
+            'vat'=> $vat,
+            'price_vat'=> $price_vat,
         ];
     }
 }

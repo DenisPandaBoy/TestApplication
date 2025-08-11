@@ -8,7 +8,7 @@ use Carbon\Laravel\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-    public array $bindings =[
+    public array $bindings = [
         OrderRepositoryInterface::class => OrderRepository::class,
     ];
 

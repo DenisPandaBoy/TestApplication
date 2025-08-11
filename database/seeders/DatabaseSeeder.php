@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        Order::factory()->count(10)->create();
+        $this->call([
+            OrderSeeder::class,
+        ]);
+
     }
 }
