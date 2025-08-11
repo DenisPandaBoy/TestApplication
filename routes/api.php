@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,5 @@ Route::middleware(['auth:sanctum'])->group(function ()
     Route::post('/order/destroy/{id}', [OrderController::class, 'destroy']);
     Route::get('/order', [OrderController::class, 'index']);
     Route::get('/order/{id}', [OrderController::class, 'show']);
+    Route::apiResource('order-items', OrderItemController::class);
 });
