@@ -11,8 +11,7 @@ class OrderItemRepository implements OrderItemRepositoryInterface
 {
     public function getOrderItems(int $orderId): Collection
     {
-        $order = Order::findOrFail($orderId);
-        return $order->orderItems;
+        return  OrderItem::where('order_id',$orderId)->get();
     }
 
     public function getOrderItemById(int $id): OrderItem
