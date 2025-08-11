@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateOrderItemRequest;
+use App\Http\Requests\UpdateOrderItemRequest;
 use App\Http\Resources\OrderItemResource;
-use App\Http\Resources\OrderResource;
 use App\Interfaces\OrderItemRepositoryInterface;
+use App\Services\OrderItemService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class OrderItemController extends APIController
 {
     public function __construct(
-        private readonly OrderItemRepositoryInterface $orderItemRepository
-    ){}
+        private readonly OrderItemRepositoryInterface $orderItemRepository,
+        private readonly OrderItemService             $orderItemService
+    )
+    {
+    }
 
     public function index(): JsonResponse
     {
@@ -20,5 +24,44 @@ class OrderItemController extends APIController
         $resource = OrderItemResource::collection($orderItems);
 
         return $this->responseJson(data: $resource);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $orderItem = $this->orderItemRepository->getOrderItemById($id);
+
+        $resource = OrderItemResource::make($orderItem);
+
+        return $this->responseJson(data: $resource);
+    }
+
+    public function store(CreateOrderItemRequest $request): JsonResponse
+    {
+        $orderItem = $this->orderItemService->createOrderItem($request->all());
+
+        $resource = OrderItemResource::make($orderItem);
+
+        return $this->responseJson(data: $resource, message: "Order Item created successfully");
+    }
+
+    public function update(UpdateOrderItemRequest $request, int $id): JsonResponse
+    {
+        $orderItem = $this->orderItemRepository->getOrderItemById($id);
+
+        $updatedItem = $this->orderItemService->updateOrderItem($orderItem, $request->all());
+
+        $resource = OrderItemResource::make($updatedItem);
+        $updatedItemName = $resource->name;
+
+        return $this->responseJson(data: $resource, message: "Order Item $updatedItemName updated successfully");
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $orderItem = $this->orderItemRepository->getOrderItemById($id);
+
+        $itemName = $this->orderItemService->destroy($orderItem)->name;
+
+        return $this->responseJson(data: $orderItem, message: "Order Item $itemName deleted successfully");
     }
 }

@@ -37,7 +37,7 @@ class OrderController extends APIController
 
     public function store(CreateOrderRequest $request): JsonResponse
     {
-        $order = $this->orderService->createOrder(Carbon::createFromFormat('Y-m-d H:i:s',$request->all()));
+        $order = $this->orderService->createOrder($request->all());
 
         return $this->responseJson(data: $order, message: 'Order created successfully.');
     }

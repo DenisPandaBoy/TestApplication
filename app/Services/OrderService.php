@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use Carbon\Carbon;
 use DateTime;
 
 class OrderService
@@ -25,7 +26,6 @@ class OrderService
     public function updateOrder(Order $order, array $data): Order
     {
         $order->update($data);
-        $order->save();
         return $order;
     }
 
