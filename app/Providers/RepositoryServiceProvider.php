@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Providers;
+
+use App\Interfaces\OrderRepositoryInterface;
+use App\Repositories\OrderRepository;
+use Carbon\Laravel\ServiceProvider;
+
+class RepositoryServiceProvider extends ServiceProvider
+{
+    public array $bindings =[
+        OrderRepositoryInterface::class => OrderRepository::class,
+    ];
+
+    public function register(): void
+    {
+        $this->bindRepositories();
+    }
+
+    private function bindRepositories(): void
+    {
+        foreach ($this->bindings as $interface => $repository)
+        {
+            $this->app->bind($interface, $repository);
+        }
+    }
+}
