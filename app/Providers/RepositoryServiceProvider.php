@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Interfaces\CategoryRepositoryInterface;
 use App\Interfaces\OrderItemRepositoryInterface;
 use App\Interfaces\OrderRepositoryInterface;
+use App\Repositories\CategoryRepository;
 use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use Carbon\Laravel\ServiceProvider;
@@ -13,6 +15,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public array $bindings = [
         OrderRepositoryInterface::class => OrderRepository::class,
         OrderItemRepositoryInterface::class => OrderItemRepository::class,
+        CategoryRepositoryInterface::class => CategoryRepository::class,
     ];
 
     public function register(): void

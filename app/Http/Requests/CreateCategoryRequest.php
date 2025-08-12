@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateOrderRequest extends FormRequest
+class CreateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,7 @@ class CreateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'due_date' => ['required', 'date_format:Y-m-d H:i:s'],
-            'payment_data' => ['date_format:Y-m-d H:i:s'],
-            'category_id' => ['exists:categories,id'],
+            'name' => 'required|string',
         ];
     }
 }

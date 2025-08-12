@@ -23,6 +23,7 @@ class UpdateOrderRequest extends FormRequest
     {
         return [
             'order_number' => 'numeric|min_digits:9',
+            'category_id' => 'exists:categories,id',
             'due_date' => 'date_format:Y-m-d H:i:s',
             'payment_date' => 'date_format:Y-m-d H:i:s',
         ];
