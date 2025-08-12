@@ -18,4 +18,11 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         return Category::findOrFail($categoryId);
     }
+
+    public function getSlugAppendingNumber(string $slug): int
+    {
+        $categories = Category::whereLike('slug',$slug .'%')->get();
+
+        return count($categories);
+    }
 }
