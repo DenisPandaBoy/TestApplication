@@ -16,16 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        if(User::where('email','test@example.com')->get()->isEmpty()){
-            User::factory()->create([
-                'name' => 'Test User',
-                'last_name' => 'Testovic',
-                'email' => 'test@example.com',
-                'password' => bcrypt('test'),
-            ]);
-        }
+
 
         $this->call([
+            UserSeeder::class,
             OrderSeeder::class,
             CategorySeeder::class,
         ]);

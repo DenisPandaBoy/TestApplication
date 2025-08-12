@@ -10,7 +10,7 @@ class OrderRepository implements OrderRepositoryInterface
 {
     public function getOrders(): Collection
     {
-        return Order::query()->get();
+        return Order::query()->visibleForUser()->with('user')->get();
     }
 
     public function getOrderById($id): Order
