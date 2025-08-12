@@ -10,4 +10,6 @@ interface OrderRepositoryInterface
     public function getOrders(): Collection;
 
     public function getOrderById($id): Order;
+
+    public function getOrdersByCategoryId(int $categoryId): Collection;
 }
