@@ -12,5 +12,5 @@ interface CategoryRepositoryInterface
 
     public function getCategoryById(int $categoryId): Category;
 
-    public function getSlugAppendingNumber(string $slug): int;
+    public function getCategoriesWithIdenticalSlug(string $name): Collection;
 }

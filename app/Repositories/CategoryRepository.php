@@ -6,6 +6,7 @@ use App\Interfaces\CategoryRepositoryInterface;
 use App\Models\Category;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -19,10 +20,8 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::findOrFail($categoryId);
     }
 
-    public function getSlugAppendingNumber(string $slug): int
+    public function getCategoriesWithIdenticalSlug(string $slug): Collection
     {
-        $categories = Category::whereLike('slug',$slug .'%')->get();
-
-        return count($categories);
+        return Category::whereLike('slug',$slug .'%')->get();
     }
 }

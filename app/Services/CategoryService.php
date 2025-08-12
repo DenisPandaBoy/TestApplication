@@ -11,17 +11,13 @@ class CategoryService
 {
     public function __construct(
         private readonly CategoryRepositoryInterface $categoryRepository
-    ){}
+    )
+    {
+    }
 
     public function createCategory(array $data): Category
     {
-        $slug = Str::slug($data['name'], '-');
-
-        $appending_number = $this->categoryRepository->getSlugAppendingNumber($slug);
-
-        if($appending_number > 0) $slug .= '-' . $appending_number;
-
-        $data['slug'] = $slug;
+        $data['slug'] = $this->generateSlug($data['name']);
 
         return Category::create($data);
     }
@@ -36,5 +32,20 @@ class CategoryService
     {
         $category->delete();
         return $category;
+    }
+
+    private function generateSlug($name): string
+    {
+        $slug = Str::slug($name, '-');
+        $categories = $this->categoryRepository->getCategoriesWithIdenticalSlug($slug);
+        $count = 0;
+        while (true)
+        {
+            $append = $count == 0 ? "" : "-$count";
+
+            if ($categories->doesntContain('slug',value: $slug . $append)) return $slug . $append;
+
+            $count++;
+        }
     }
 }
