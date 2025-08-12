@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::middleware(['auth:sanctum'])->group(function ()
     });
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
     Route::apiResource('order', OrderController::class);
+    Route::apiResource('category', CategoryController::class);
     Route::apiResource('order-items', OrderItemController::class)->only(['update', 'destroy']);
     Route::get('order-items/{order_id}', [OrderItemController::class, 'index']);
     Route::post('order-items/store/{order_id}', [OrderItemController::class, 'store']);
