@@ -24,6 +24,7 @@ class CreateOrderRequest extends FormRequest
         return [
             'due_date' => ['required', 'date_format:Y-m-d H:i:s'],
             'payment_data' => ['date_format:Y-m-d H:i:s'],
+            'category_id' => ['exists:categories,id'],
         ];
     }
 }

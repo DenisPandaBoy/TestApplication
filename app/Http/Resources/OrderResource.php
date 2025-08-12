@@ -18,6 +18,7 @@ class OrderResource extends JsonResource
             'order_number' => $this->order_number,
             'due_date' => $this->due_date,
             'payment_date' => $this->payment_date,
+            'category_id' => $this->category_id,
         ];
     }
 }
