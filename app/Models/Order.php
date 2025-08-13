@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,6 +40,12 @@ class Order extends Model
             'due_date' => 'datetime',
             'payment_date' => 'datetime',
         ];
+    }
+
+    #[Scope]
+    protected function visibleForUser(Builder $query): void
+    {
+        $query->whereAttachedTo(auth()->user());
     }
 
     public function orderItems(): HasMany
