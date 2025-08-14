@@ -4,7 +4,6 @@ namespace App\Enums;
 
 enum OrderStatus: string
 {
-    const DEFAULT = OrderStatus::NEW;
     case NEW = 'new';
     case PROCESSING = 'processing';
     case COMPLETED = 'completed';

@@ -64,7 +64,7 @@ class Order extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function status(): HasMany
+    public function statuses(): HasMany
     {
         return $this->hasMany(OrderStatus::class,'order_status');
     }

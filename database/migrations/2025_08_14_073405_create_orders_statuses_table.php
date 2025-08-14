@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('orders_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('status')->default(OrderStatus::DEFAULT);
+            $table->string('status');
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
