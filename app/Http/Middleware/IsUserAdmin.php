@@ -18,6 +18,6 @@ class IsUserAdmin
         $user = auth()->user();
         if($user->is_admin) return $next($request);
 
-        return response("User $user->name not an admin", Response::HTTP_FORBIDDEN);
+        return response("User $user->name is not an admin", Response::HTTP_FORBIDDEN);
     }
 }
