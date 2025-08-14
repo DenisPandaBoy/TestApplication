@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\CategoryRepositoryInterface;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CategoryService
@@ -18,19 +19,22 @@ class CategoryService
     public function createCategory(array $data): Category
     {
         $data['slug'] = $this->generateSlug($data['name']);
-
-        return Category::create($data);
+        $category = Category::create($data);
+        Cache::forget('categories');
+        return $category;
     }
 
     public function updateCategory(Category $category, array $data): Category
     {
         $category->update($data);
+        Cache::forget('categories');
         return $category;
     }
 
     public function destroy(Category $category): Category
     {
         $category->delete();
+        Cache::forget('categories');
         return $category;
     }
 

@@ -13,7 +13,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
     public function getCategories(): Collection
     {
-        return Cache::remember('categories', 180, function () {
+        return Cache::rememberForever('categories', function () {
             return Category::all();
         });
     }
