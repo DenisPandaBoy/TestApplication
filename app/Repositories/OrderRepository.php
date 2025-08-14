@@ -10,16 +10,16 @@ class OrderRepository implements OrderRepositoryInterface
 {
     public function getOrders(): Collection
     {
-        return Order::query()->get();
+        return Order::visibleForUser()->get();
     }
 
-    public function getOrderById($id): Order
+    public function getOrderById(int $id): Order
     {
-        return Order::query()->findOrFail($id);
+        return Order::visibleForUser()->findOrFail($id);
     }
 
     public function getOrdersByCategoryId(int $categoryId): Collection
     {
-        return Order::where('category_id', $categoryId)->get();
+        return Order::visibleForUser()->where('category_id', $categoryId)->get();
     }
 }
