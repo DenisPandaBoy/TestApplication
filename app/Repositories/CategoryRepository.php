@@ -6,13 +6,16 @@ use App\Interfaces\CategoryRepositoryInterface;
 use App\Models\Category;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
     public function getCategories(): Collection
     {
-        return Category::all();
+        return Cache::remember('categories', 180, function () {
+            return Category::all();
+        });
     }
 
     public function getCategoryById(int $categoryId): Category
