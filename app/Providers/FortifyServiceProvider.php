@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
+use Symfony\Component\HttpFoundation\Response;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -21,7 +23,13 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                return response()->json
+                (RESPONSE::HTTP_OK);
+            }
+        });
     }
 
     /**

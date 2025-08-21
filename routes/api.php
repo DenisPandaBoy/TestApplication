@@ -25,12 +25,12 @@ Route::middleware(['auth:sanctum'])->group(function ()
         return $request->user();
     });
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
-    Route::apiResource('user', UserController::class);
+    Route::apiResource('users', UserController::class);
 
-    Route::apiResource('order', OrderController::class)
+    Route::apiResource('orders', OrderController::class)
     ->middlewareFor(['show', 'update', 'destroy'],IsUserPairedWithOrder::class);
 
-    Route::apiResource('category', CategoryController::class)
+    Route::apiResource('categories', CategoryController::class)
         ->middlewareFor(['store', 'update', 'destroy'],IsUserAdmin::class);
 
     Route::apiResource('order-items', OrderItemController::class)->only(['update', 'destroy']);
