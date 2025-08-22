@@ -23,7 +23,10 @@ class IsUserPairedWithOrder
     public function handle(Request $request, Closure $next): Response
     {
         $user = auth()->user();
-        if ($this->orderRepository->getOrderById($request->route('order'))->relation() !== null) return $next
+        if ($this->orderRepository
+            ->getOrderById($request->route('order'))
+            ->users()->where('user_id', $user->id)
+            ->exists()) return $next
         ($request);
         return response("User $user->name doesn't have access", Response::HTTP_FORBIDDEN);
     }

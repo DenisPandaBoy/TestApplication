@@ -13,11 +13,13 @@ class OrderService
         $order_number = Order::query()->Max('order_number') + 1;
 
         $data = [
+            'category_id' => $data['category_id'],
             'order_number' => $order_number,
             'due_date' => $data['due_date'],
             'payment_date' => $data['payment_date'],
         ];
         $order = Order::create($data);
+        $order->users()->save(request()->user());
         $order->save();
 
         return $order;
