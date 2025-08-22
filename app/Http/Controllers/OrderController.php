@@ -44,7 +44,7 @@ class OrderController extends APIController
 
     public function update(UpdateOrderRequest $request, int $id): JsonResponse
     {
-        $order = $this->orderRepository->getUsersOrderById($id);
+        $order = $this->orderRepository->getOrderById($id);
 
         $updatedOrder = $this->orderService->updateOrder($order, $request->all());
 
