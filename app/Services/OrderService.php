@@ -19,7 +19,7 @@ class OrderService
             'payment_date' => $data['payment_date'],
         ];
         $order = Order::create($data);
-        $order->users()->save(request()->user());
+        $order->users()->save(auth()->user());
         $order->save();
 
         return $order;
