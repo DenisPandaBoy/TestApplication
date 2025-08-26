@@ -6,13 +6,12 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Services\OrderItemService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use tests\TestCase;
 
 class OrderItemServiceTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     */
+    use RefreshDatabase;
     public function test_createOrderItem_function(): void
     {
         $category = Category::factory()->create();
