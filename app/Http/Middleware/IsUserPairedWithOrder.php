@@ -26,8 +26,7 @@ class IsUserPairedWithOrder
         if ($this->orderRepository
             ->getOrderById($request->route('order'))
             ->users()->where('user_id', $user->id)
-            ->exists()) return $next
-        ($request);
+            ->exists()) return $next($request);
         return response("User $user->name doesn't have access", Response::HTTP_FORBIDDEN);
     }
 }

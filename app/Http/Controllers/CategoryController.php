@@ -56,7 +56,7 @@ class CategoryController extends APIController
     {
         $category = $this->categoryRepository->getCategoryById($id);
 
-        $category->delete();
+        $this->categoryService->destroy($category);
 
         return $this->responseJson(message: "category $category->name has been deleted");
     }
