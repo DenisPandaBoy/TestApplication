@@ -59,4 +59,11 @@ class OrderController extends APIController
 
         return $this->responseJson(message: "Order $orderNumber deleted successfully.");
     }
+
+    public function getStatuses(int $id): JsonResponse
+    {
+        $order = $this->orderRepository->getOrderById($id);
+        
+        return $this->responseJson(data: $order->statuses()->get());
+    }
 }
