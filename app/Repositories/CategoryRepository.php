@@ -20,11 +20,15 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getCategoryById(int $categoryId): Category
     {
-        return Category::findOrFail($categoryId);
+        if(!Cache::has('categories')) $this->getCategories();
+        return Cache::get('categories')->where('id',$categoryId)->First();
     }
 
     public function getCategoriesWithIdenticalSlug(string $slug): Collection
     {
-        return Category::whereLike('slug',$slug .'%')->get();
+        if(!Cache::has('categories')) $this->getCategories();
+        return Cache::get('categories')->filter(function ($category) use ($slug) {
+            return Str::startsWith($category->slug, $slug);
+        });
     }
 }

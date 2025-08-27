@@ -27,6 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function ()
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
     Route::apiResource('users', UserController::class);
 
+    Route::get('orders/{order_id}/statuses', [OrderController::class, 'getStatuses']);
     Route::apiResource('orders', OrderController::class)
     ->middlewareFor(['show', 'update', 'destroy'],IsUserPairedWithOrder::class);
 
